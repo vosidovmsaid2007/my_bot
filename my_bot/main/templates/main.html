@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    main {
+      padding: 10px;
+    }
+
+    .book-container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .book {
+      width: 130px;
+      margin: 5px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .play-voice{
+      width: 130px;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    
+
+  </style>
+
+  <title>Main</title>
+</head>
+<body>
+
+  <center><h1> {{ level_name }} </h1></center>
+  <main>
+    <div class="book-container">
+      {% for data in all_data %}
+        <div class="book">
+          {% comment %} <h1>{{ data.text_content }}</h1> {% endcomment %}
+          <img src="{{ data.image_file.url }}" alt="Image" height="130px" weight="130px" class="play-voice" data-voice="{{ data.voice_file.url }}">
+        </div>
+      {% endfor %}
+
+
+    </div>
+
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get all elements with the class 'play-voice'
+        var playVoiceElements = document.querySelectorAll('.play-voice');
+
+        playVoiceElements.forEach(function(element) {
+            // Add a click event listener to each element
+            element.addEventListener('click', function() {
+                // Get the data-voice attribute value
+                var voiceUrl = element.getAttribute('data-voice');
+
+                // Create an audio element and play the voice
+                var audioElement = new Audio(voiceUrl);
+                audioElement.play();
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
